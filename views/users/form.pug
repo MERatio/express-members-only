@@ -1,0 +1,56 @@
+extends ../layout
+
+block content
+	main(class='container')
+		div(class='row justify-content-center')
+			div(class='col-md-8 col-lg-4')
+				h1(class='text-center')= title
+				form(method='POST' action='')
+					div(class='mb-3')
+						input(
+							type='text' 
+							class='form-control' 
+							name='firstName' 
+							value=(user ? user.firstName : '') 
+							placeholder='First name' 
+							required 
+						)
+					div(class='mb-3')
+						input(
+							type='text' 
+							class='form-control' 
+							name='lastName' 
+							value=(user ? user.lastName : '') 
+							placeholder='Last name' 
+							required 
+						)
+					div(class='mb-3')
+						input(
+							type='text' 
+							class='form-control' 
+							name='username' 
+							value=(user ? user.username : '') 
+							placeholder='Username'
+							maxlength='100' 
+							required 
+						)
+					div(class='mb-3')
+						input(
+							type='password' 
+							class='form-control' 
+							name='password' 
+							placeholder='Password'
+							minlength='8'
+							required 
+						)
+					div(class='mb-3')
+						input(
+							type='password' 
+							class='form-control' 
+							name='confirmPassord' 
+							placeholder='Confirm password'
+							minlength='8'
+							required 
+						)
+					div(class='d-grid')
+						button(type='submit button' class='btn btn-primary') Submit
