@@ -66,7 +66,7 @@ const createUsers = (cb) => {
             'Barrow',
             'will_barrow_01',
             hashedPassword,
-            false,
+            undefined,
             callback
           );
         });
