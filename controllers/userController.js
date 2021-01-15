@@ -11,7 +11,7 @@ const beforeMiddleware = require('../lib/beforeMiddleware');
 exports.createGet = [
 	beforeMiddleware.notAuthenticatedUser,
 	(req, res) => {
-		res.render('users/form', { title: 'Create User' });
+		res.render('users/form', { title: 'Create User', flashes: req.flash() });
 	},
 ];
 
@@ -71,6 +71,7 @@ exports.createPost = [
 							next(err);
 						} else {
 							// Successful - redirect to root path.
+							req.flash('success', 'You have successfully sign up.');
 							res.redirect('/');
 						}
 					});
