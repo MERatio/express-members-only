@@ -1,4 +1,5 @@
 if errors
-	ul(class='list-group mb-3')
-		for error in errors
-			li(class='list-group-item list-group-item-danger')!= error.msg
+	div(class='container')
+		ul(class='list-group mb-3')
+			for error in errors
+				li(class='list-group-item list-group-item-danger')!= error.msg
