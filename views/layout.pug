@@ -11,8 +11,10 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 
 	body
+		include ./partials/navbar.pug
+		include ./partials/flashes.pug
 		include ./partials/formError.pug
-	
+
 		block content
 		
 		script(

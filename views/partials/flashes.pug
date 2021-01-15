@@ -1,0 +1,9 @@
+if flashes
+	div(class='container')
+		ul(class='list-group mb-3')
+			each messages, type in flashes
+				each message in messages
+					- const color = type === 'error' ? 'danger' : type;
+					li(
+						class=`list-group-item list-group-item-${color}`
+					)!= message

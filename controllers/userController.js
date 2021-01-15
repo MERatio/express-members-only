@@ -1,14 +1,22 @@
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 // Model
 const User = require('../models/user');
 
-exports.createGet = (req, res) => {
-	res.render('users/form', { title: 'Create User' });
-};
+// Lib
+const beforeMiddleware = require('../lib/beforeMiddleware');
+
+exports.createGet = [
+	beforeMiddleware.notAuthenticatedUser,
+	(req, res) => {
+		res.render('users/form', { title: 'Create User' });
+	},
+];
 
 exports.createPost = [
+	beforeMiddleware.notAuthenticatedUser,
 	// Validate and sanitise fields.
 	body('firstName').trim().isLength({ max: 255 }).escape(),
 	body('lastName').trim().isLength({ max: 255 }).escape(),
@@ -69,5 +77,34 @@ exports.createPost = [
 				}
 			});
 		}
+	},
+];
+
+exports.logInGet = [
+	beforeMiddleware.notAuthenticatedUser,
+	(req, res) => {
+		res.render('users/logInForm', {
+			title: 'Log in',
+			flashes: req.flash(),
+		});
+	},
+];
+
+exports.logInPost = [
+	beforeMiddleware.notAuthenticatedUser,
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/users/log-in',
+		failureFlash: true,
+		successFlash: 'Welcome!',
+	}),
+];
+
+exports.logOut = [
+	beforeMiddleware.authenticatedUser,
+	(req, res) => {
+		req.logout();
+		req.flash('success', 'You have successfully logged out.');
+		res.redirect('/');
 	},
 ];
