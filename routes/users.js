@@ -4,9 +4,9 @@ const router = express.Router();
 // Controller
 const userController = require('../controllers/userController');
 
-router.get('/create', userController.createGet);
+router.get('/sign-up', userController.createGet);
 
-router.post('/create', userController.createPost);
+router.post('/sign-up', userController.createPost);
 
 router.get('/log-in', userController.logInGet);
 
