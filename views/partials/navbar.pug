@@ -9,6 +9,12 @@ nav(class='navbar navbar-expand-lg navbar-dark bg-dark mb-3')
             a(class='nav-link' href='/users/log-out') Log Out
         else
           li(class='nav-item')
-            a(class='nav-link' href='/users/sign-up') Sign Up
+            a(
+              class=`nav-link ${path === '/users/sign-up' ? 'active' : ''}` 
+              href='/users/sign-up'
+            ) Sign Up
           li(class='nav-item')
-            a(class='nav-link' href='/users/log-in') Log In
+            a(
+              class=`nav-link ${path === '/users/log-in' ? 'active' : ''}` 
+              href='/users/log-in'
+            ) Log In
