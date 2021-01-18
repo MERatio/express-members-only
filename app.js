@@ -21,7 +21,7 @@ const postsRouter = require('./routes/posts');
 
 const app = express();
 
-// Set up dev mongoose connection
+// Set up default mongoose connection
 const mongoDB = process.env.DEV_DB_STRING;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
