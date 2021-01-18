@@ -15,6 +15,7 @@ const flash = require('connect-flash');
 // Require model
 const User = require('./models/user');
 
+// Require routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
@@ -92,6 +93,7 @@ app.use((req, res, next) => {
 });
 // *** Passport, session config end ***
 
+// Use the routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
