@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const url = require('url');
 
 // Model
 const User = require('../models/user');
@@ -98,12 +99,30 @@ exports.logInGet = [
 
 exports.logInPost = [
 	beforeMiddleware.notAuthenticatedUser,
-	passport.authenticate('local', {
-		successRedirect: '/',
-		failureRedirect: '/users/log-in',
-		failureFlash: true,
-		successFlash: 'Welcome!',
-	}),
+	(req, res, next) => {
+		passport.authenticate('local', (err, user, info) => {
+			if (err) {
+				next(err);
+			} else if (!user) {
+				req.flash('error', info.message);
+				res.redirect(
+					url.format({
+						pathname: '/users/log-in',
+						query: req.query,
+					})
+				);
+			} else {
+				req.logIn(user, (err) => {
+					if (err) {
+						next(err);
+					} else {
+						req.flash('success', 'Welcome!');
+						res.redirect(req.query.next || '/');
+					}
+				});
+			}
+		})(req, res, next);
+	},
 ];
 
 exports.logOut = [
