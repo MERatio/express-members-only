@@ -6,6 +6,10 @@ const Post = require('../models/post');
 // Lib
 const beforeMiddleware = require('../lib/beforeMiddleware');
 
+exports.list = (req, res, next) => {
+	res.send('NOT IMPLEMENTED: Post list');
+};
+
 exports.createGet = [
 	beforeMiddleware.authenticatedUser,
 	(req, res) => {
