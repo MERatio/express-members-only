@@ -23,11 +23,20 @@ exports.createGet = [
 exports.createPost = [
 	beforeMiddleware.notAuthenticatedUser,
 	// Validate and sanitise fields.
-	body('firstName').trim().isLength({ max: 255 }).escape(),
-	body('lastName').trim().isLength({ max: 255 }).escape(),
+	body('firstName')
+		.trim()
+		.isLength({ max: 255 })
+		.withMessage('First name is too long (maximum is 255 characters)')
+		.escape(),
+	body('lastName')
+		.trim()
+		.isLength({ max: 255 })
+		.withMessage('Last name is too long (maximum is 255 characters)')
+		.escape(),
 	body('username')
 		.trim()
 		.isLength({ max: 20 })
+		.withMessage('Username is too long (maximum is 20 characters)')
 		.escape()
 		.custom((value, { req }) => {
 			return User.findOne({ username: value }).then((user) => {
@@ -39,7 +48,9 @@ exports.createPost = [
 				}
 			});
 		}),
-	body('password').isLength({ min: 8 }),
+	body('password')
+		.isLength({ min: 8 })
+		.withMessage('Password is too short (minimum is 8 characters)'),
 	body('confirmPassword').custom((value, { req }) => {
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');
