@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+	main(class='container')
+		div(class='row justify-content-center')
+			div(class='col-md-8 col-lg-4')
+				h1(class='text-center')= title
+				form(method='POST' action='')
+					div(class='mb-3')
+						input(
+							type='text' 
+							class='form-control' 
+							name='title' 
+							value=(post ? post.title : '') 
+							placeholder='Title'
+							maxlength='60' 
+							required 
+						)
+					div(class='mb-3')
+						textarea(
+							class='form-control'
+							name='body' 
+							placeholder='Body'
+							maxlength='1000' 
+							required 
+						)= post ? post.body : ''
+					div(class='d-grid')
+						button(type='submit button' class='btn btn-primary') Submit
