@@ -45,9 +45,9 @@ exports.createPost = [
 			// Data form is valid.
 			// Create an Post object with escaped and trimmed data.
 			const post = new Post({
-				user: req.user,
-				title: req.title,
-				body: req.body,
+				user: req.user._id,
+				title: req.body.title,
+				body: req.body.body,
 			});
 			post.save((err) => {
 				// Successful - redirect to root path.
