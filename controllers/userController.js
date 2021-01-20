@@ -136,14 +136,15 @@ exports.logInPost = [
 	},
 ];
 
-exports.logOut = [
-	beforeMiddleware.authenticatedUser,
-	(req, res) => {
+exports.logOut = (req, res) => {
+	if (!req.user) {
+		req.flash('warning', "You're not currently logged in.");
+	} else {
 		req.logout();
 		req.flash('success', 'You have successfully logged out.');
-		res.redirect('/');
-	},
-];
+	}
+	res.redirect('/');
+};
 
 exports.joinClubGet = [
 	beforeMiddleware.authenticatedUser,
