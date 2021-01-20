@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+	main(class='container')
+		h1(class='text-center')!= title
+		div(class='col-12')
+			div(class='row row-cols-1')
+				each post in posts
+					div(class='col mb-4')
+						div(class='card')
+							div(class='card-header')
+								h4= post.title
+								if currentUser
+									p(class='mb-1')= post.user.fullName
+								else
+									a(href='/users/log-in' class='d-block mb-1') Log in to see the author
+								small(
+									class='text-muted'
+									)= formatDistance(post.createdAt, new Date(), { includeSeconds: true, addSuffix: true })
+							div(class='card-body')
+								p(class='card-text')= post.body

@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const formatDistance = require('date-fns/formatDistance');
 
 // Model
 const Post = require('../models/post');
@@ -7,7 +8,21 @@ const Post = require('../models/post');
 const beforeMiddleware = require('../lib/beforeMiddleware');
 
 exports.list = (req, res, next) => {
-	res.send('NOT IMPLEMENTED: Post list');
+	Post.find()
+		.populate('user')
+		.exec((err, posts) => {
+			if (err) {
+				next(err);
+			} else {
+				//Successful, so render
+				res.render('posts/list', {
+					title: 'Posts',
+					flashes: req.flash(),
+					posts,
+					formatDistance,
+				});
+			}
+		});
 };
 
 exports.createGet = [
