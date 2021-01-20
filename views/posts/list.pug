@@ -10,10 +10,14 @@ block content
 						div(class='card')
 							div(class='card-header')
 								h4= post.title
-								if currentUser
-									p(class='mb-1')= post.user.fullName
-								else
-									a(href='/users/log-in' class='d-block mb-1') Log in to see the author
+								p(class='mb-1')
+									if currentUser
+										if currentUser.member
+											span= post.user.fullName
+										else
+											a(href='/users/join-club') Join the club to see the author
+									else 
+										a(href='/users/log-in' ) Log in and join the club to see the author
 								small(
 									class='text-muted'
 									)= formatDistance(post.createdAt, new Date(), { includeSeconds: true, addSuffix: true })
