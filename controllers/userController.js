@@ -144,3 +144,42 @@ exports.logOut = [
 		res.redirect('/');
 	},
 ];
+
+exports.joinClubGet = [
+	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.notAMember,
+	(req, res) => {
+		res.render('users/joinClubForm', {
+			title: 'Join the Club',
+			flashes: req.flash(),
+		});
+	},
+];
+
+exports.joinClubPost = [
+	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.notAMember,
+	(req, res, next) => {
+		if (req.body.clubPasscode !== process.env.CLUB_PASSCODE) {
+			req.flash('danger', 'Wrong club passcode, please try again.');
+			res.render('users/joinClubForm', {
+				title: 'Join the Club',
+				flashes: req.flash(),
+			});
+		} else {
+			req.flash('success', "You're now a member of the club!");
+			User.findOneAndUpdate(
+				{ _id: req.user._id },
+				{ member: true },
+				{},
+				(err) => {
+					if (err) {
+						return next(err);
+					} else {
+						res.redirect('/');
+					}
+				}
+			);
+		}
+	},
+];

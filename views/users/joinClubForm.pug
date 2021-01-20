@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	main(class='container')
+		div(class='row justify-content-center')
+			div(class='col-md-8 col-lg-4')
+				h1(class='text-center')= title
+				form(method='POST' action='')
+					div(class='mb-3')
+						input(
+							type='password' 
+							class='form-control' 
+							name='clubPasscode' 
+							placeholder='Club passcode'
+							required 
+						)
+					div(class='d-grid')
+						button(type='submit button' class='btn btn-primary') Join the Club
