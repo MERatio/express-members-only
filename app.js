@@ -85,13 +85,14 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+// *** Passport, session config end ***
 
-// Assigns the logged in user to currentUser that is available to all views.
+// Assigns some values that is available to all views.
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
+	res.locals.originalUrl = req.originalUrl;
 	next();
 });
-// *** Passport, session config end ***
 
 // Use the routers
 app.use('/', indexRouter);

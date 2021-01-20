@@ -8,19 +8,25 @@ nav(class='navbar navbar-expand-lg navbar-dark bg-dark mb-3')
         if currentUser
           if !currentUser.member
             li(class='nav-item')
-              a(class='nav-link' href='/users/join-club') Join the Club
+              a(
+                class=`nav-link ${originalUrl === '/users/join-club' ? 'active' : ''}` 
+                href='/users/join-club'
+              ) Join the Club
           li(class='nav-item')
-            a(class='nav-link' href='/posts/create') Create Post
+            a(
+              class=`nav-link ${originalUrl === '/posts/create' ? 'active' : ''}` 
+              href='/posts/create'
+            ) Create Post
           li(class='nav-item')
             a(class='nav-link' href='/users/log-out') Log Out
         else
           li(class='nav-item')
             a(
-              class=`nav-link ${path === '/users/sign-up' ? 'active' : ''}` 
+              class=`nav-link ${originalUrl === '/users/sign-up' ? 'active' : ''}` 
               href='/users/sign-up'
             ) Sign Up
           li(class='nav-item')
             a(
-              class=`nav-link ${path === '/users/log-in' ? 'active' : ''}` 
+              class=`nav-link ${originalUrl === '/users/log-in' ? 'active' : ''}` 
               href='/users/log-in'
             ) Log In

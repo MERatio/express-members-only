@@ -14,7 +14,6 @@ exports.createGet = [
 	(req, res) => {
 		res.render('users/form', {
 			title: 'Create User',
-			path: '/users/sign-up',
 			flashes: req.flash(),
 		});
 	},
@@ -102,7 +101,6 @@ exports.logInGet = [
 	(req, res) => {
 		res.render('users/logInForm', {
 			title: 'Log in',
-			path: '/users/log-in',
 			flashes: req.flash(),
 		});
 	},
