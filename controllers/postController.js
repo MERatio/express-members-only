@@ -9,6 +9,7 @@ const beforeMiddleware = require('../lib/beforeMiddleware');
 
 exports.list = (req, res, next) => {
 	Post.find()
+		.sort({ createdAt: 'desc' })
 		.populate('user')
 		.exec((err, posts) => {
 			if (err) {
