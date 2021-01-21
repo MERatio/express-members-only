@@ -8,7 +8,7 @@ block content
 				each post in posts
 					div(class='col mb-4')
 						div(class='card')
-							div(class='card-header')
+							div(class='card-header position-relative')
 								h4= post.title
 								p(class='mb-1')
 									if currentUser
@@ -25,5 +25,14 @@ block content
 								small(
 									class='text-muted'
 									)= formatDistance(post.createdAt, new Date(), { includeSeconds: true, addSuffix: true })
+								if currentUser && currentUser.admin
+									form(method='POST' action=`/posts/${post._id}/delete` class='post-delete-form')
+										input(
+											type='hidden' 
+											name='postId' 
+											value=post._id
+											required 
+										)
+										button(type='submit' class='btn btn-danger') Delete
 							div(class='card-body')
 								p(class='card-text')= post.body

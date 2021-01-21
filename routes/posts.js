@@ -10,4 +10,6 @@ router.get('/create', postController.createGet);
 
 router.post('/create', postController.createPost);
 
+router.post('/:id/delete', postController.deletePost);
+
 module.exports = router;

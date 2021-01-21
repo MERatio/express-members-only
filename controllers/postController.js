@@ -73,3 +73,29 @@ exports.createPost = [
 		}
 	},
 ];
+
+exports.deletePost = [
+	(req, res, next) => {
+		if (!req.user) {
+			req.flash('warning', "You're not currently logged in.");
+			res.redirect('/');
+		} else {
+			next();
+		}
+	},
+	beforeMiddleware.admin,
+	(req, res, next) => {
+		Post.findByIdAndDelete(req.body.postId, (err, post) => {
+			if (err) {
+				next(err);
+			} else if (post === null) {
+				const err = new Error('Post not found');
+				err.status = 404;
+				next(err);
+			} else {
+				req.flash('success', 'Post deleted successfully.');
+				res.redirect('/posts');
+			}
+		});
+	},
+];
