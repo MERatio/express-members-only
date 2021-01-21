@@ -12,6 +12,12 @@ nav(class='navbar navbar-expand-lg navbar-dark bg-dark mb-3')
                 class=`nav-link ${originalUrl === '/users/join-club' ? 'active' : ''}` 
                 href='/users/join-club'
               ) Join the Club
+          if !currentUser.admin
+            li(class='nav-item')
+              a(
+                class=`nav-link ${originalUrl === '/users/be-an-admin' ? 'active' : ''}` 
+                href='/users/be-an-admin'
+              ) Be an Admin
           li(class='nav-item')
             a(
               class=`nav-link ${originalUrl === '/posts/create' ? 'active' : ''}` 

@@ -182,3 +182,42 @@ exports.joinClubPost = [
 		}
 	},
 ];
+
+exports.beAnAdminGet = [
+	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.notAnAdmin,
+	(req, res) => {
+		res.render('users/beAnAdminForm', {
+			title: 'Be an Admin',
+			flashes: req.flash(),
+		});
+	},
+];
+
+exports.beAnAdminPost = [
+	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.notAnAdmin,
+	(req, res, next) => {
+		if (req.body.adminPasscode !== process.env.ADMIN_PASSCODE) {
+			req.flash('danger', 'Wrong admin passcode, please try again.');
+			res.render('users/beAnAdminForm', {
+				title: 'Be an Admin',
+				flashes: req.flash(),
+			});
+		} else {
+			req.flash('success', "You're now an admin of the club!");
+			User.findOneAndUpdate(
+				{ _id: req.user.id },
+				{ member: true, admin: true },
+				{},
+				(err) => {
+					if (err) {
+						next(err);
+					} else {
+						res.redirect('/');
+					}
+				}
+			);
+		}
+	},
+];

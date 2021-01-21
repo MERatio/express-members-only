@@ -14,6 +14,7 @@ const UserSchema = new Schema({
 	},
 	password: { type: String, required: true },
 	member: { type: Boolean, default: false },
+	admin: { type: Boolean, default: false },
 });
 
 // Virtual
