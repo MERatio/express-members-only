@@ -28,8 +28,16 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const users = [];
 const posts = [];
 
-const userCreate = (firstName, lastName, username, password, member, cb) => {
-  const userDetail = { firstName, lastName, username, password, member };
+const userCreate = (
+  firstName,
+  lastName,
+  username,
+  password,
+  member,
+  admin,
+  cb
+) => {
+  const userDetail = { firstName, lastName, username, password, member, admin };
   const user = new User(userDetail);
   user.save((err) => {
     if (err) {
@@ -67,6 +75,7 @@ const createUsers = (cb) => {
             'will_barrow_01',
             hashedPassword,
             undefined,
+            undefined,
             callback
           );
         });
@@ -79,6 +88,7 @@ const createUsers = (cb) => {
             'weir_doe_02',
             hashedPassword,
             true,
+            undefined,
             callback
           );
         });
