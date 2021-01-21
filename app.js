@@ -12,6 +12,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const compression = require('compression');
+const helmet = require('helmet');
 
 // Require model
 const User = require('./models/user');
@@ -22,6 +23,8 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 
 const app = express();
+
+app.use(helmet());
 
 // Set up default mongoose connection
 const mongoDB = process.env.DEV_DB_STRING;
