@@ -173,7 +173,7 @@ exports.joinClubPost = [
 				{},
 				(err) => {
 					if (err) {
-						return next(err);
+						next(err);
 					} else {
 						res.redirect('/');
 					}
