@@ -15,9 +15,13 @@ block content
 										if currentUser.member
 											span= post.user.fullName
 										else
-											a(href='/users/join-club') Join the club to see the author
+											a(
+												href='/users/join-club'
+											) Join the club or be an admin to see the author
 									else 
-										a(href='/users/log-in' ) Log in and join the club to see the author
+										a(
+											href='/users/log-in'
+										) Log in and join the club or be an admin to see the author
 								small(
 									class='text-muted'
 									)= formatDistance(post.createdAt, new Date(), { includeSeconds: true, addSuffix: true })
