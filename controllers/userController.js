@@ -87,7 +87,7 @@ exports.createPost = [
 						} else {
 							// Successful - redirect to root path.
 							req.flash('success', 'You have successfully sign up.');
-							res.redirect('/');
+							res.redirect('/users/log-in');
 						}
 					});
 				}
