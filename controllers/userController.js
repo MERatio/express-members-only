@@ -134,18 +134,17 @@ exports.logInPost = [
 	},
 ];
 
-exports.logOut = (req, res) => {
-	if (!req.user) {
-		req.flash('warning', "You're not currently logged in.");
-	} else {
+exports.logOut = [
+	beforeMiddleware.authenticatedUser,
+	(req, res) => {
 		req.logout();
 		req.flash('success', 'You have successfully logged out.');
-	}
-	res.redirect('/');
-};
+		res.redirect('/');
+	},
+];
 
 exports.joinClubGet = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	beforeMiddleware.notAMember,
 	(req, res) => {
 		res.render('users/joinClubForm', {
@@ -156,7 +155,7 @@ exports.joinClubGet = [
 ];
 
 exports.joinClubPost = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	beforeMiddleware.notAMember,
 	(req, res, next) => {
 		if (req.body.clubPasscode !== process.env.CLUB_PASSCODE) {
@@ -184,7 +183,7 @@ exports.joinClubPost = [
 ];
 
 exports.beAnAdminGet = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	beforeMiddleware.notAnAdmin,
 	(req, res) => {
 		res.render('users/beAnAdminForm', {
@@ -195,7 +194,7 @@ exports.beAnAdminGet = [
 ];
 
 exports.beAnAdminPost = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	beforeMiddleware.notAnAdmin,
 	(req, res, next) => {
 		if (req.body.adminPasscode !== process.env.ADMIN_PASSCODE) {

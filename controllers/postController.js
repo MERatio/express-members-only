@@ -27,14 +27,14 @@ exports.list = (req, res, next) => {
 };
 
 exports.createGet = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	(req, res) => {
 		res.render('posts/form', { title: 'Create Post', flashes: req.flash() });
 	},
 ];
 
 exports.createPost = [
-	beforeMiddleware.authenticatedUser,
+	beforeMiddleware.authenticatedUserWithDynamicRedirect,
 	// Validate and sanitise fields.
 	body('title')
 		.trim()
@@ -75,14 +75,7 @@ exports.createPost = [
 ];
 
 exports.deletePost = [
-	(req, res, next) => {
-		if (!req.user) {
-			req.flash('warning', "You're not currently logged in.");
-			res.redirect('/');
-		} else {
-			next();
-		}
-	},
+	beforeMiddleware.authenticatedUser,
 	beforeMiddleware.admin,
 	(req, res, next) => {
 		Post.findByIdAndDelete(req.body.postId, (err, post) => {
