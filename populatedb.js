@@ -93,6 +93,19 @@ const createUsers = (cb) => {
           );
         });
       },
+      (callback) => {
+        bcrypt.hash('password123', 10, (err, hashedPassword) => {
+          userCreate(
+            'John',
+            'Doe',
+            'johndoe123',
+            hashedPassword,
+            true,
+            true,
+            callback
+          );
+        });
+      },
     ],
     // Optional callback
     cb
