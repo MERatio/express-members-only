@@ -12,7 +12,9 @@ block content
 								h4= post.title
 								p(class='mb-1')
 									if currentUser
-										if currentUser.member
+										if String(currentUser._id) ===  String(post.user._id)
+											span= `${post.user.fullName} (You)`
+										else if currentUser.member
 											span= post.user.fullName
 										else
 											a(
