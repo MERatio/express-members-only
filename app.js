@@ -24,7 +24,17 @@ const postsRouter = require('./routes/posts');
 
 const app = express();
 
-app.use(helmet());
+app.use(
+	helmet.contentSecurityPolicy({
+		/* Sets all of the default directives, but overrides script-src.
+       To allow scripts from cdn.jsdelivr.net (default is 'self').
+		*/
+		directives: {
+			...helmet.contentSecurityPolicy.getDefaultDirectives(),
+			'script-src': ["'self'", 'cdn.jsdelivr.net'],
+		},
+	})
+);
 
 // Set up default mongoose connection
 const mongoDB = process.env.DEV_DB_STRING || process.env.PROD_DB_STRING;
